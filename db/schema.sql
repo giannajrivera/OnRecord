@@ -44,3 +44,45 @@ CREATE TABLE IF NOT EXISTS terms (
 
 CREATE INDEX IF NOT EXISTS idx_terms_member ON terms (bioguide_id);
 CREATE INDEX IF NOT EXISTS idx_terms_state ON terms (state, chamber);
+
+-- Table: committees
+-- One row per committee or subcommittee.
+-- Subcommittees point to their parent through parent_committee_id.
+-- committee_id uses the thomas_id style codes from congress-legislators
+-- (for example 'HSAG' for a committee, 'HSAG03' for a subcommittee).
+
+CREATE TABLE IF NOT EXISTS committees (
+    committee_id         TEXT PRIMARY KEY,
+    parent_committee_id  TEXT REFERENCES committees (committee_id),  -- NULL for full committees
+    name                 TEXT NOT NULL,
+    chamber              TEXT NOT NULL CHECK (chamber IN ('house', 'senate', 'joint')),
+    congress             INTEGER,            -- e.g. 119; NULL if not tied to one Congress
+    is_current           INTEGER NOT NULL DEFAULT 0 CHECK (is_current IN (0, 1)),
+    url                  TEXT,               -- committee's official website
+    source_url           TEXT NOT NULL,
+    retrieved_at         TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_committees_parent ON committees (parent_committee_id);
+
+-- Table: committee_memberships
+-- One row per member per committee per Congress, with their role.
+-- Roles are stored as recorded in the source (for example 'Chair',
+-- 'Ranking Member', 'Vice Chair'). NULL means a regular member.
+
+CREATE TABLE IF NOT EXISTS committee_memberships (
+    membership_id   INTEGER PRIMARY KEY AUTOINCREMENT,
+    bioguide_id     TEXT NOT NULL REFERENCES members (bioguide_id),
+    committee_id    TEXT NOT NULL REFERENCES committees (committee_id),
+    congress        INTEGER NOT NULL,        -- e.g. 119
+    role            TEXT,
+    rank            INTEGER,                 -- seniority order in the source, if given
+    start_date      TEXT,                    -- ISO format; NULL if not provided
+    end_date        TEXT,                    -- NULL if still serving
+    source_url      TEXT NOT NULL,
+    retrieved_at    TEXT NOT NULL,
+    UNIQUE (bioguide_id, committee_id, congress)
+);
+
+CREATE INDEX IF NOT EXISTS idx_memberships_member ON committee_memberships (bioguide_id);
+CREATE INDEX IF NOT EXISTS idx_memberships_committee ON committee_memberships (committee_id);
