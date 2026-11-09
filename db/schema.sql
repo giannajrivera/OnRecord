@@ -86,3 +86,52 @@ CREATE TABLE IF NOT EXISTS committee_memberships (
 
 CREATE INDEX IF NOT EXISTS idx_memberships_member ON committee_memberships (bioguide_id);
 CREATE INDEX IF NOT EXISTS idx_memberships_committee ON committee_memberships (committee_id);
+
+-- Table: bills
+-- One row per bill or resolution.
+-- bill_id is built as '{congress}-{type}-{number}', for example '119-hr-1'.
+-- Type codes are lowercase, matching the Congress.gov API:
+-- hr, s, hjres, sjres, hconres, sconres, hres, sres.
+
+CREATE TABLE IF NOT EXISTS bills (
+    bill_id             TEXT PRIMARY KEY,
+    congress            INTEGER NOT NULL,        -- e.g. 119
+    bill_type           TEXT NOT NULL CHECK (bill_type IN
+                        ('hr', 's', 'hjres', 'sjres', 'hconres', 'sconres', 'hres', 'sres')),
+    bill_number         INTEGER NOT NULL,
+    title               TEXT NOT NULL,           -- short title if one exists, else official title
+    official_title      TEXT,
+    introduced_date     TEXT,                    -- ISO format: YYYY-MM-DD
+    policy_area         TEXT,                    -- Congress.gov policy area, as recorded
+    latest_action_text  TEXT,                    -- as recorded; we do not rewrite it
+    latest_action_date  TEXT,
+    became_law          INTEGER NOT NULL DEFAULT 0 CHECK (became_law IN (0, 1)),
+    public_law_number   TEXT,                    -- e.g. '119-12', NULL if not enacted
+    congress_gov_url    TEXT,
+    source_url          TEXT NOT NULL,
+    retrieved_at        TEXT NOT NULL,
+    UNIQUE (congress, bill_type, bill_number)
+);
+
+CREATE INDEX IF NOT EXISTS idx_bills_congress ON bills (congress);
+CREATE INDEX IF NOT EXISTS idx_bills_policy_area ON bills (policy_area);
+
+-- Table: sponsorships
+-- One row per member per bill, marking sponsor or cosponsor.
+-- A bill has exactly one sponsor and any number of cosponsors.
+
+CREATE TABLE IF NOT EXISTS sponsorships (
+    sponsorship_id      INTEGER PRIMARY KEY AUTOINCREMENT,
+    bill_id             TEXT NOT NULL REFERENCES bills (bill_id),
+    bioguide_id         TEXT NOT NULL REFERENCES members (bioguide_id),
+    role                TEXT NOT NULL CHECK (role IN ('sponsor', 'cosponsor')),
+    is_original         INTEGER CHECK (is_original IN (0, 1)),  -- original cosponsor?
+    sponsored_date      TEXT,                    -- date they signed on
+    withdrawn_date      TEXT,                    -- NULL if never withdrawn
+    source_url          TEXT NOT NULL,
+    retrieved_at        TEXT NOT NULL,
+    UNIQUE (bill_id, bioguide_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_sponsorships_member ON sponsorships (bioguide_id);
+CREATE INDEX IF NOT EXISTS idx_sponsorships_bill ON sponsorships (bill_id);
