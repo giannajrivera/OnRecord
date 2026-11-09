@@ -185,3 +185,87 @@ CREATE TABLE IF NOT EXISTS member_votes (
 
 CREATE INDEX IF NOT EXISTS idx_member_votes_member ON member_votes (bioguide_id);
 CREATE INDEX IF NOT EXISTS idx_member_votes_vote ON member_votes (vote_id);
+
+-- Campaign finance tables (source: FEC / OpenFEC API)
+-- Money is stored as integer cents to avoid floating-point errors.
+
+-- Table: member_fec_ids
+-- Links a member (bioguide_id) to FEC candidate IDs.
+-- One member can have several FEC IDs (House run, then Senate run).
+-- Source: unitedstates/congress-legislators.
+
+CREATE TABLE IF NOT EXISTS member_fec_ids (
+    bioguide_id        TEXT NOT NULL REFERENCES members (bioguide_id),
+    fec_candidate_id   TEXT NOT NULL,        -- e.g. 'H2OH13033'
+    source_url         TEXT NOT NULL,
+    retrieved_at       TEXT NOT NULL,
+    PRIMARY KEY (bioguide_id, fec_candidate_id)
+);
+
+-- Table: fec_committees
+-- One row per FEC committee (campaign committees, PACs, party committees).
+
+CREATE TABLE IF NOT EXISTS fec_committees (
+    committee_id       TEXT PRIMARY KEY,     -- e.g. 'C00401224'
+    name               TEXT NOT NULL,
+    committee_type     TEXT,                 -- as recorded by FEC
+    designation        TEXT,                 -- as recorded by FEC
+    party              TEXT,
+    organization_type  TEXT,                 -- as recorded, e.g. corporation, union
+    connected_org      TEXT,                 -- connected organization name, if any
+    source_url         TEXT NOT NULL,
+    retrieved_at       TEXT NOT NULL
+);
+
+-- Table: candidate_committees
+-- Which committees belong to which candidate, per election cycle.
+
+CREATE TABLE IF NOT EXISTS candidate_committees (
+    fec_candidate_id   TEXT NOT NULL,
+    committee_id       TEXT NOT NULL REFERENCES fec_committees (committee_id),
+    cycle              INTEGER NOT NULL,     -- two-year period, e.g. 2026
+    designation        TEXT,                 -- as recorded, e.g. principal committee
+    source_url         TEXT NOT NULL,
+    retrieved_at       TEXT NOT NULL,
+    PRIMARY KEY (fec_candidate_id, committee_id, cycle)
+);
+
+-- Table: fec_contributions
+-- One row per itemized contribution received by a committee.
+-- sub_id is the FEC's own unique record ID, so re-imports do not duplicate.
+
+CREATE TABLE IF NOT EXISTS fec_contributions (
+    sub_id                   TEXT PRIMARY KEY,
+    recipient_committee_id   TEXT NOT NULL REFERENCES fec_committees (committee_id),
+    contributor_type         TEXT NOT NULL CHECK (contributor_type IN
+                             ('individual', 'committee', 'organization', 'other')),
+    contributor_name         TEXT,
+    contributor_committee_id TEXT,           -- set when the donor is a committee/PAC
+    contributor_employer     TEXT,
+    contributor_occupation   TEXT,
+    contributor_state        TEXT,
+    amount_cents             INTEGER NOT NULL,
+    receipt_date             TEXT,           -- ISO format: YYYY-MM-DD
+    cycle                    INTEGER NOT NULL,
+    source_url               TEXT NOT NULL,
+    retrieved_at             TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_contrib_recipient ON fec_contributions (recipient_committee_id, cycle);
+CREATE INDEX IF NOT EXISTS idx_contrib_donor_committee ON fec_contributions (contributor_committee_id);
+
+-- Table: fec_cycle_totals
+-- Summary totals per committee per cycle, as reported by FEC.
+-- Used for "share of total raised" and peer comparison.
+
+CREATE TABLE IF NOT EXISTS fec_cycle_totals (
+    committee_id       TEXT NOT NULL REFERENCES fec_committees (committee_id),
+    cycle              INTEGER NOT NULL,
+    receipts_cents     INTEGER,
+    disbursements_cents INTEGER,
+    cash_on_hand_cents INTEGER,
+    coverage_end_date  TEXT,
+    source_url         TEXT NOT NULL,
+    retrieved_at       TEXT NOT NULL,
+    PRIMARY KEY (committee_id, cycle)
+);
