@@ -21,3 +21,26 @@ CREATE TABLE IF NOT EXISTS members (
 
 CREATE INDEX IF NOT EXISTS idx_members_state ON members (state);
 CREATE INDEX IF NOT EXISTS idx_members_current ON members (is_current);
+
+-- Table: terms
+-- One row per term served. A member can have many terms.
+-- This is the source of truth for position history. The chamber, party,
+-- state, and district columns in members are just a snapshot of the latest term.
+
+CREATE TABLE IF NOT EXISTS terms (
+    term_id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    bioguide_id     TEXT NOT NULL REFERENCES members (bioguide_id),
+    chamber         TEXT NOT NULL CHECK (chamber IN ('house', 'senate')),
+    state           TEXT NOT NULL,           -- two-letter code
+    district        INTEGER,                 -- NULL for senators; 0 for at-large
+    party           TEXT,                    -- party as recorded for this term
+    senate_class    INTEGER CHECK (senate_class IN (1, 2, 3)),  -- senators only
+    start_date      TEXT NOT NULL,           -- ISO format: YYYY-MM-DD
+    end_date        TEXT,                    -- NULL if the term is ongoing
+    source_url      TEXT NOT NULL,
+    retrieved_at    TEXT NOT NULL,
+    UNIQUE (bioguide_id, chamber, start_date)
+);
+
+CREATE INDEX IF NOT EXISTS idx_terms_member ON terms (bioguide_id);
+CREATE INDEX IF NOT EXISTS idx_terms_state ON terms (state, chamber);
