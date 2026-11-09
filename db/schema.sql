@@ -135,3 +135,53 @@ CREATE TABLE IF NOT EXISTS sponsorships (
 
 CREATE INDEX IF NOT EXISTS idx_sponsorships_member ON sponsorships (bioguide_id);
 CREATE INDEX IF NOT EXISTS idx_sponsorships_bill ON sponsorships (bill_id);
+
+-- Table: votes
+-- One row per roll call vote.
+-- vote_id is built as '{chamber}-{congress}-{session}-{roll}',
+-- for example 'house-119-1-123'.
+-- Sources: House Clerk and Senate roll-call XML.
+
+CREATE TABLE IF NOT EXISTS votes (
+    vote_id         TEXT PRIMARY KEY,
+    chamber         TEXT NOT NULL CHECK (chamber IN ('house', 'senate')),
+    congress        INTEGER NOT NULL,
+    session         INTEGER NOT NULL CHECK (session IN (1, 2)),
+    roll_number     INTEGER NOT NULL,
+    vote_date       TEXT NOT NULL,           -- ISO format: YYYY-MM-DD
+    question        TEXT,                    -- as recorded, e.g. 'On Passage'
+    description     TEXT,                    -- as recorded; we do not rewrite it
+    result          TEXT,                    -- as recorded, e.g. 'Passed'
+    bill_id         TEXT REFERENCES bills (bill_id),  -- NULL if not about a bill
+    yea_count       INTEGER,
+    nay_count       INTEGER,
+    present_count   INTEGER,
+    not_voting_count INTEGER,
+    source_url      TEXT NOT NULL,
+    retrieved_at    TEXT NOT NULL,
+    UNIQUE (chamber, congress, session, roll_number)
+);
+
+CREATE INDEX IF NOT EXISTS idx_votes_bill ON votes (bill_id);
+CREATE INDEX IF NOT EXISTS idx_votes_date ON votes (vote_date);
+
+-- Table: member_votes
+-- One row per member per roll call.
+-- position is normalized; position_raw keeps the exact value from the source.
+-- 'other' covers votes that are not yea/nay/present/not voting,
+-- such as a candidate's name in a Speaker election.
+
+CREATE TABLE IF NOT EXISTS member_votes (
+    member_vote_id  INTEGER PRIMARY KEY AUTOINCREMENT,
+    vote_id         TEXT NOT NULL REFERENCES votes (vote_id),
+    bioguide_id     TEXT NOT NULL REFERENCES members (bioguide_id),
+    position        TEXT NOT NULL CHECK (position IN
+                    ('yea', 'nay', 'present', 'not_voting', 'other')),
+    position_raw    TEXT NOT NULL,
+    party_at_vote   TEXT,                    -- party as listed on that vote
+    state_at_vote   TEXT,
+    UNIQUE (vote_id, bioguide_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_member_votes_member ON member_votes (bioguide_id);
+CREATE INDEX IF NOT EXISTS idx_member_votes_vote ON member_votes (vote_id);
