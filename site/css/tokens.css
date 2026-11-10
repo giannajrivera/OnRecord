@@ -1,0 +1,51 @@
+/* OnRecord design tokens
+   Neutral, non-partisan palette: no red/blue party colors as brand colors.
+   Light theme by default, dark theme follows the user's system setting. */
+
+:root {
+  /* Surfaces and text */
+  --color-bg: #fafaf8;
+  --color-surface: #ffffff;
+  --color-border: #dcdcd6;
+  --color-text: #1c1f23;
+  --color-text-muted: #5a6068;
+
+  /* Brand accent (teal) */
+  --color-accent: #0f6b6b;
+  --color-accent-hover: #0a5252;
+  --color-accent-text: #ffffff;
+
+  /* Status colors for statements and flags (always paired with a text label) */
+  --color-verified: #1d6b3a;
+  --color-unverified: #8a5a00;
+  --color-disputed: #5a6068;
+
+  /* Focus ring for keyboard users */
+  --color-focus: #b45f06;
+
+  /* Typography */
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-quote: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.625rem;
+  --text-2xl: 2.125rem;
+  --line-height: 1.55;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+
+  /* Shape */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0,
