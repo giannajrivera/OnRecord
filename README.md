@@ -13,7 +13,7 @@ OnRecord connects statements, votes, sponsored bills, and campaign finance for m
 - **Transparent:** the methodology is public, and corrections are logged.
 
 ## Current status
-Early development. v1 scope: current members of Congress, with a focus on mental health, sleep, and epilepsy legislation.
+Early development. v1 scope: current members of Congress.
 
 ## Planned features
 - [ ] Member profiles (votes, sponsorships, committees)
