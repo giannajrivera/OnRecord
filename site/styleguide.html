@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
+  <script src="js/tabs.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -111,6 +112,29 @@
       <input class="search__input" id="q" type="search" placeholder="Search by name or state">
       <button class="btn" type="submit">Search</button>
     </form>
+
+    <h2>Tabs</h2>
+    <div class="tabs" data-tabs>
+      <div class="tabs__list" role="tablist" aria-label="Sample profile sections" hidden>
+        <button class="tabs__tab" role="tab" id="tab-records" aria-controls="panel-records" aria-selected="true">Records</button>
+        <button class="tabs__tab" role="tab" id="tab-money" aria-controls="panel-money" aria-selected="false" tabindex="-1">Money</button>
+        <button class="tabs__tab" role="tab" id="tab-words" aria-controls="panel-words" aria-selected="false" tabindex="-1">Words</button>
+        <button class="tabs__tab" role="tab" id="tab-background" aria-controls="panel-background" aria-selected="false" tabindex="-1">Background</button>
+      </div>
+
+      <div class="tabs__panel" role="tabpanel" id="panel-records" aria-labelledby="tab-records" tabindex="0">
+        <p>Records: votes, sponsored bills, and attendance would appear here. (Sample content.)</p>
+      </div>
+      <div class="tabs__panel" role="tabpanel" id="panel-money" aria-labelledby="tab-money" tabindex="0">
+        <p>Money: campaign finance, lobbying, and disclosures would appear here. (Sample content.)</p>
+      </div>
+      <div class="tabs__panel" role="tabpanel" id="panel-words" aria-labelledby="tab-words" tabindex="0">
+        <p>Words: documented statements and flagged conflicts would appear here. (Sample content.)</p>
+      </div>
+      <div class="tabs__panel" role="tabpanel" id="panel-background" aria-labelledby="tab-background" tabindex="0">
+        <p>Background: positions held, committees, and history would appear here. (Sample content.)</p>
+      </div>
+    </div>
   </main>
 </body>
 </html>
