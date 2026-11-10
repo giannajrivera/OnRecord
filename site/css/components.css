@@ -239,3 +239,42 @@
   border-left-width: 6px;
   border-radius: var(--radius-sm);
 }
+
+/* ---------- Tabs ---------- */
+.tabs__list {
+  display: flex;
+  gap: var(--space-1);
+  overflow-x: auto;                  /* scrolls sideways on narrow phones */
+  border-bottom: 2px solid var(--color-border);
+}
+
+.tabs__tab {
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-4);
+  margin-bottom: -2px;               /* overlaps the list border */
+  font: inherit;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  background: none;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+}
+
+.tabs__tab:hover {
+  color: var(--color-text);
+}
+
+.tabs__tab[aria-selected="true"] {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+.tabs__panel {
+  padding-top: var(--space-6);
+}
+
+.tabs__panel[hidden] {
+  display: none;
+}
