@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Style guide | OnRecord</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Serif+4:ital@0;1&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="container">
+    <p><strong>OnRecord</strong> style guide</p>
+  </header>
+
+  <main id="main" class="container">
+    <div class="notice" role="note">
+      <strong>Sample data.</strong> Every name and number on this page is invented for design testing. None of it describes a real person.
+    </div>
+
+    <h1>Components</h1>
+
+    <h2>Buttons</h2>
+    <p>
+      <button class="btn" type="button">Primary</button>
+      <button class="btn btn--secondary" type="button">Secondary</button>
+      <button class="btn btn--ghost" type="button">Ghost</button>
+      <button class="btn" type="button" disabled>Disabled</button>
+    </p>
+
+    <h2>Status badges</h2>
+    <p>
+      <span class="badge badge--verified">Verified</span>
+      <span class="badge badge--unverified">Unverified</span>
+      <span class="badge badge--disputed">Disputed</span>
+    </p>
+
+    <h2>Source and last updated</h2>
+    <p>
+      <span class="source">Source: <a href="#main">Sample roll call record</a></span>
+      &nbsp;
+      <span class="updated">Last updated: 2026-01-01 (sample)</span>
+    </p>
+
+    <h2>Card</h2>
+    <div class="card-grid">
+      <article class="card">
+        <h3 class="card__title">Sample Member</h3>
+        <p class="text-muted text-small">Sample Senator, Example State</p>
+        <div class="card__meta">
+          <span class="badge badge--verified">Verified</span>
+          <span class="source">Source: <a href="#main">Sample</a></span>
+        </div>
+      </article>
+      <article class="card">
+        <h3 class="card__title">Another Sample</h3>
+        <p class="text-muted text-small">Sample Representative, District 3</p>
+        <div class="card__meta">
+          <span class="badge badge--unverified">Unverified</span>
+          <span class="source">Source: <a href="#main">Sample</a></span>
+        </div>
+      </article>
+    </div>
+
+    <h2>Table</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <caption>Sample votes</caption>
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Measure</th>
+            <th scope="col">Position</th>
+            <th scope="col" class="num">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2026-01-01</td>
+            <td>Sample Bill A</td>
+            <td>Yea</td>
+            <td class="num">$1,200</td>
+          </tr>
+          <tr>
+            <td>2026-01-08</td>
+            <td>Sample Bill B</td>
+            <td>Nay</td>
+            <td class="num">$45,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Filter chips</h2>
+    <ul class="chips">
+      <li><button class="chip" type="button" aria-pressed="true">Mental health</button></li>
+      <li><button class="chip" type="button" aria-pressed="false">Sleep</button></li>
+      <li><button class="chip" type="button" aria-pressed="false">Epilepsy</button></li>
+    </ul>
+
+    <h2>Search</h2>
+    <form class="search" role="search" onsubmit="return false">
+      <label class="visually-hidden" for="q">Search members</label>
+      <input class="search__input" id="q" type="search" placeholder="Search by name or state">
+      <button class="btn" type="submit">Search</button>
+    </form>
+  </main>
+</body>
+</html>
