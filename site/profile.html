@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jordan Example (sample profile) | OnRecord</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Serif+4:ital@0;1&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="js/tabs.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="container">
+    <p><a href="index.html"><strong>OnRecord</strong></a></p>
+  </header>
+
+  <main id="main" class="container">
+    <div class="notice" role="note">
+      <strong>Sample data.</strong> Jordan Example is a fictional person. Every name, vote, quote, and dollar amount on this page is invented for design testing.
+    </div>
+
+    <section class="profile-header" aria-labelledby="member-name">
+      <h1 id="member-name">Jordan Example</h1>
+      <p class="profile-header__sub">Sample Senator, Example State &middot; Sample Party A</p>
+    </section>
+
+    <ul class="stats" aria-label="Summary numbers">
+      <li class="stat"><span class="stat__value">412 of 420</span><span class="stat__label">Roll call votes cast (98.1%)</span></li>
+      <li class="stat"><span class="stat__value">14</span><span class="stat__label">Bills sponsored</span></li>
+      <li class="stat"><span class="stat__value">62</span><span class="stat__label">Bills cosponsored</span></li>
+      <li class="stat"><span class="stat__value">1</span><span class="stat__label">Sponsored bills enacted</span></li>
+    </ul>
+
+    <div class="tabs" data-tabs data-tabs-hash>
+      <div class="tabs__list" role="tablist" aria-label="Profile sections" hidden>
+        <button class="tabs__tab" role="tab" id="tab-records" aria-controls="panel-records" aria-selected="true">Records</button>
+        <button class="tabs__tab" role="tab" id="tab-money" aria-controls="panel-money" aria-selected="false" tabindex="-1">Money</button>
+        <button class="tabs__tab" role="tab" id="tab-words" aria-controls="panel-words" aria-selected="false" tabindex="-1">Words</button>
+        <button class="tabs__tab" role="tab" id="tab-background" aria-controls="panel-background" aria-selected="false" tabindex="-1">Background</button>
+      </div>
+
+      <!-- RECORDS -->
+      <div class="tabs__panel" role="tabpanel" id="panel-records" aria-labelledby="tab-records" tabindex="0">
+        <div class="section-head">
+          <h2>Recent votes</h2>
+          <span class="updated">Last updated: 2026-01-01 (sample)</span>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <caption class="visually-hidden">Recent votes</caption>
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Measure</th>
+                <th scope="col">Topic</th>
+                <th scope="col">Position</th>
+                <th scope="col">Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2025-09-02</td>
+                <td>Sample Coverage Act (S. 101)</td>
+                <td>Health coverage</td>
+                <td>Yea</td>
+                <td><span class="source"><a href="#main">Sample roll call</a></span></td>
+              </tr>
+              <tr>
+                <td>2025-07-15</td>
+                <td>Sample Telehealth Bill (S. 87)</td>
+                <td>Telehealth</td>
+                <td>Nay</td>
+                <td><span class="source"><a href="#main">Sample roll call</a></span></td>
+              </tr>
+              <tr>
+                <td>2025-06-03</td>
+                <td>Sample Funding Resolution (S.J.Res. 12)</td>
+                <td>Budget</td>
+                <td>Not voting</td>
+                <td><span class="source"><a href="#main">Sample roll call</a></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section-head">
+          <h2>Bills sponsored</h2>
+          <span class="updated">Last updated: 2026-01-01 (sample)</span>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <caption class="visually-hidden">Bills sponsored</caption>
+            <thead>
+              <tr>
+                <th scope="col">Bill</th>
+                <th scope="col">Introduced</th>
+                <th scope="col">Latest action (as recorded)</th>
+                <th scope="col">Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sample Sleep Access Act (S. 220)</td>
+                <td>2025-02-10</td>
+                <td>Referred to committee</td>
+                <td><span class="source"><a href="#main">Sample bill record</a></span></td>
+              </tr>
+              <tr>
+                <td>Sample Care Standards Act (S. 145)</td>
+                <td>2025-01-22</td>
+                <td>Became law</td>
+                <td><span class="source"><a href="#main">Sample bill record</a></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-small text-muted">&ldquo;Not voting&rdquo; is recorded as-is. Absences have many possible reasons, and this page does not interpret them.</p>
+      </div>
+
+      <!-- MONEY -->
+      <div class="tabs__panel" role="tabpanel" id="panel-money" aria-labelledby="tab-money" tabindex="0" hidden>
+        <div class="section-head">
+          <h2>Campaign finance</h2>
+          <span class="updated">Last updated: 2026-01-01 (sample)</span>
+        </div>
+        <p class="text-small text-muted">2024 cycle. Donations are recorded facts and do not show influence or agreement. Every committee and organization is listed by the same rules.</p>
+        <div class="table-wrap">
+          <table class="table">
+            <caption class="visually-hidden">Top contributing committees</caption>
+            <thead>
+              <tr>
+                <th scope="col">Contributor (committee)</th>
+                <th scope="col">Type (as recorded)</th>
+                <th scope="col" class="num">Amount</th>
+                <th scope="col" class="num">Share of total raised</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sample Industry PAC One</td>
+                <td>Corporate PAC</td>
+                <td class="num">$10,000</td>
+                <td class="num">0.4%</td>
+              </tr>
+              <tr>
+                <td>Sample Workers Fund</td>
+                <td>Labor PAC</td>
+                <td class="num">$10,000</td>
+                <td class="num">0.4%</td>
+              </tr>
+              <tr>
+                <td>Sample Issue Alliance</td>
+                <td>Issue PAC</td>
+                <td class="num">$7,500</td>
+                <td class="num">0.3%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-small">Total raised: $2,400,000 &middot; Individual donors are shown as totals only: $1,850,000 from individuals.
+          <span class="source">Source: <a href="#main">Sample FEC filing</a></span></p>
+
+        <div class="section-head">
+          <h2>Lobbying activity</h2>
+          <span class="updated">Last updated: 2026-01-01 (sample)</span>
+        </div>
+        <div class="empty">No lobbying filings tied to this member&rsquo;s sponsored bills were found in the sources checked.</div>
+
+        <div class="section-head">
+          <h2>Financial disclosures</h2>
+          <span class="updated">Last updated: 2026-01-01 (sample)</span>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <caption class="visually-hidden">Reported transactions</caption>
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Asset</th>
+                <th scope="col">Type</th>
+                <th scope="col" class="num">Amount range</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2025-05-12</td>
+                <td>Sample Corp (SMPL)</td>
+                <td>Purchase</td>
+                <td class="num">$1,001 &ndash; $15,000</td>
+                <td><span class="badge badge--verified">Verified</span></td>
+              </tr>
+              <tr>
+                <td>2025-08-30</td>
+                <td>Example Holdings (EXMP)</td>
+                <td>Sale</td>
+                <td class="num">$15,001 &ndash; $50,000</td>
+                <td><span class="badge badge--unverified">Unverified</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-small text-muted">Amounts are reported as ranges. &ldquo;Unverified&rdquo; means the row was read by software and has not been checked against the original filing.</p>
+      </div>
+
+      <!-- WORDS -->
+      <div class="tabs__panel" role="tabpanel" id="panel-words" aria-labelledby="tab-words" tabindex="0" hidden>
+        <div class="section-head">
+          <h2>Documented statements</h2>
+          <span class="updated">Last updated: 2026-01-01 (sample)</span>
+        </div>
+
+        <article class="card">
+          <blockquote class="quote">&ldquo;I will vote to protect coverage for sleep disorder treatments.&rdquo;</blockquote>
+          <p class="text-small text-muted">Topic: Health coverage &middot; Stated 2025-03-14 &middot; Floor speech</p>
+          <div class="card__meta">
+            <span class="badge badge--verified">Verified</span>
+            <span class="source">Source: <a href="#main">Sample transcript</a></span>
+          </div>
+        </article>
+
+        <article class="card">
+          <blockquote class="quote">&ldquo;Telehealth access should be a priority this year.&rdquo;</blockquote>
+          <p class="text-small text-muted">Topic: Telehealth &middot; Stated 2025-04-02 &middot; Press release</p>
+          <div class="card__meta">
+            <span class="badge badge--unverified">Unverified</span>
+            <span class="source">Source: <a href="#main">Sample press release</a></span>
+          </div>
+        </article>
+
+        <div class="section-head">
+          <h2>Flagged conflicts</h2>
+        </div>
+        <p class="text-small text-muted">A flag appears only after review, and only when a documented statement is followed by a later vote or action that directly conflicts with it. Both sides are shown with sources.</p>
+
+        <article class="card">
+          <div class="card__meta" style="margin-top:0">
+            <span class="badge badge--verified">Confirmed by review</span>
+            <span class="text-small text-muted">Topic: Health coverage</span>
+          </div>
+          <div class="compare">
+            <div class="compare__side">
+              <span class="compare__label">Stated, 2025-03-14</span>
+              <p class="quote" style="font-size:var(--text-base)">&ldquo;I will vote to protect coverage for sleep disorder treatments.&rdquo;</p>
+              <span class="source">Source: <a href="#main">Sample transcript</a></span>
+            </div>
+            <div class="compare__side">
+              <span class="compare__label">Later action, 2025-09-02</span>
+              <p>Voted <strong>Yea</strong> on Sample Coverage Act (S. 101).</p>
+              <span class="source">Source: <a href="#main">Sample roll call</a></span>
+            </div>
+          </div>
+          <p class="reasoning"><strong>Why this was flagged:</strong> The official bill summary says the bill removes coverage for sleep disorder treatments. (Sample reasoning.)</p>
+        </article>
+      </div>
+
+      <!-- BACKGROUND -->
+      <div class="tabs__panel" role="tabpanel" id="panel-background" aria-labelledby="tab-background" tabindex="0" hidden>
+        <div class="section-head">
+          <h2>Positions held</h2>
+          <span class="updated">Last updated: 2026-01-01 (sample)</span>
+        </div>
+        <dl class="facts">
+          <div>
+            <dt>Current office</dt>
+            <dd>Senator, Example State</dd>
+          </div>
+          <div>
+            <dt>Current term</dt>
+            <dd>2023 &ndash; 2029</dd>
+          </div>
+          <div>
+            <dt>Party (as recorded)</dt>
+            <dd>Sample Party A</dd>
+          </div>
+          <div>
+            <dt>Earlier offices</dt>
+            <dd>Representative, 2017 &ndash; 2023</dd>
+          </div>
+        </dl>
+
+        <div class="section-head">
+          <h2>Committees</h2>
+          <span class="updated">Last updated: 2026-01-01 (sample)</span>
+        </div>
+        <ul class="simple-list">
+          <li>Sample Committee on Health &mdash; Member</li>
+          <li>Sample Committee on Finance &mdash; Ranking Member</li>
+          <li>Sample Subcommittee on Public Programs &mdash; Chair</li>
+        </ul>
+
+        <div class="section-head">
+          <h2>Affiliations</h2>
+        </div>
+        <div class="empty">No affiliations found in the official sources checked.</div>
+      </div>
+    </div>
+
+    <p class="limits">
+      <strong>What this page can and cannot tell you.</strong> It reports public records and does not explain why a member voted or acted a certain way. Coverage of statements is incomplete and grows over time. A missing item means nothing was found in the sources checked, not that none exists. See the methodology for definitions.
+    </p>
+  </main>
+</body>
+</html>
